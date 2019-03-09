@@ -1,0 +1,6 @@
+[submodule "depend/libcr"]
+	path = depend/libcr
+	url = https://github.com/sm2coin/libcr.git
+[submodule "depend/timer"]
+	path = depend/timer
+	url = https://github.com/RmbRT/timer.git
