@@ -32,7 +32,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/depend/timer/include)
 
 # Select all source files.
 file(GLOB_RECURSE libcr_test_sources ./src/*.cpp)
-file(GLOB_RECURSE libcr_headers ./src/*.hpp ./src/*.inl)
+file(GLOB_RECURSE libcr_test_headers ./src/*.hpp ./src/*.inl)
 
 # Add them to the project.
 add_executable(libcr_test ${libcr_test_sources} ${libcr_test_headers})
