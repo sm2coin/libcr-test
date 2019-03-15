@@ -1,5 +1,5 @@
-#ifndef __libcr_test_bench_scheduler_hpp_defined
-#define __libcr_test_bench_scheduler_hpp_defined
+#ifndef __libcr_test_bench_mtscheduler_hpp_defined
+#define __libcr_test_bench_mtscheduler_hpp_defined
 
 #include "../Benchmark.hpp"
 

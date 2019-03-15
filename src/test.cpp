@@ -1,5 +1,6 @@
 #include <libcr/libcr.hpp>
 #include "bench/MtScheduler.hpp"
+#include "bench/Scheduler.hpp"
 #include "MtScheduler.hpp"
 #include <iostream>
 #include <climits>
@@ -30,23 +31,12 @@ void test_scheduler(
 
 }
 
-void intro()
+void test_mt_schedulers(
+	std::size_t coroutines,
+	std::size_t iterations,
+	std::size_t batches)
 {
-	std::cout << "libcr benchmark tool (" << sizeof(int*)*CHAR_BIT << " bit ";
-#ifdef LIBCR_RELEASE
-	std::cout << "RELEASE";
-#else
-	std::cout << "DEBUG";
-#endif
-	std::cout << " build, " << sizeof(cr::Coroutine) << " bytes/coroutine)\n";
-}
-
-int main(int, char **)
-{
-	intro();
-	std::size_t coroutines = 600;
-	std::size_t iterations = 10000;
-	std::size_t batches = 20;
+	std::cout << "\n==== Multi-threaded tests ====\n";
 
 	test_scheduler<bench::MtScheduler<cr::mt::Scheduler>>(
 		"cr::mt::Scheduler",
@@ -69,6 +59,68 @@ int main(int, char **)
 	test_scheduler<bench::MtScheduler<FIFOMtScheduler>>(
 		"FIFOMtScheduler",
 		coroutines,
+		iterations,
+		batches);
+}
+
+void test_sync_schedulers(
+	std::size_t coroutines,
+	std::size_t iterations,
+	std::size_t batches)
+{
+	std::cout << "\n==== Single-threaded tests ====\n";
+
+	test_scheduler<bench::Scheduler<cr::sync::Scheduler>>(
+		"cr::sync::Scheduler",
+		coroutines,
+		iterations,
+		batches);
+
+	test_scheduler<bench::Scheduler<cr::sync::FIFOScheduler>>(
+		"cr::sync::FIFOScheduler",
+		coroutines,
+		iterations,
+		batches);
+
+	test_scheduler<bench::Scheduler<cr::mt::Scheduler>>(
+		"cr::mt::Scheduler",
+		coroutines,
+		iterations,
+		batches);
+
+	test_scheduler<bench::Scheduler<cr::mt::FIFOScheduler>>(
+		"cr::mt::FIFOScheduler",
+		coroutines,
+		iterations,
+		batches);
+}
+
+void intro()
+{
+	std::cout << "libcr benchmark tool (" << sizeof(int*)*CHAR_BIT << " bit ";
+#ifdef LIBCR_RELEASE
+	std::cout << "RELEASE";
+#else
+	std::cout << "DEBUG";
+#endif
+	std::cout << " build, " << sizeof(cr::Coroutine) << " bytes/coroutine)\n";
+}
+
+int main(int, char **)
+{
+	intro();
+	std::size_t mt_coroutines = 600;
+	std::size_t sync_coroutines = 600;
+	std::size_t iterations = 10000;
+	std::size_t batches = 20;
+
+	test_mt_schedulers(
+		mt_coroutines,
+		iterations,
+		batches);
+
+	test_sync_schedulers(
+		sync_coroutines,
 		iterations,
 		batches);
 }
