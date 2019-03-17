@@ -1,6 +1,10 @@
 #ifndef __libcr_test_bench_scheduler_hpp_defined
 #define __libcr_test_bench_scheduler_hpp_defined
 
+#include "../Benchmark.hpp"
+
+#include <libcr/libcr.hpp>
+
 namespace cr::test::bench
 {
 	template<class SchedulerT>

@@ -3,6 +3,8 @@
 
 #include "../Benchmark.hpp"
 
+#include <libcr/libcr.hpp>
+
 #include <vector>
 #include <atomic>
 #include <condition_variable>
