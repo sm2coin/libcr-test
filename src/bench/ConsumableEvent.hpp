@@ -11,15 +11,11 @@ namespace cr::test::bench
 	class ConsumableEvent : public Benchmark
 	{
 		COROUTINE(Waiter, void)
-		CR_STATE
-			std::size_t i;
-			EventT * event;
-			std::size_t * finished;
+		CR_STATE(
+			(std::size_t) iterations,
+			(EventT *) event,
+			(std::size_t *) finished)
 
-			inline void cr_prepare(
-				std::size_t iterations,
-				EventT * event,
-				std::size_t * finished);
 			inline void cr_destroy();
 		CR_EXTERNAL
 

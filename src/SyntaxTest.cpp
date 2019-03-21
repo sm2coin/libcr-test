@@ -4,16 +4,14 @@ namespace cr::test::syntax
 {
 	COROUTINE(InlineCoroutine, void)
 
-	CR_STATE
-		inline void cr_prepare() {}
+	CR_STATE()
 		inline void cr_destroy() {}
 	CR_INLINE
 	CR_INLINE_END
 
 	template<class Scheduler>
 	TEMPLATE_COROUTINE(YieldTester, (Scheduler), Scheduler)
-	CR_STATE
-		inline void cr_prepare(int) {}
+	CR_STATE((int) x)
 		inline void cr_destroy() {}
 	CR_INLINE
 		CR_YIELD;
@@ -25,7 +23,7 @@ namespace cr::test::syntax
 	template class YieldTester<cr::sync::FIFOScheduler>;
 
 	COROUTINE(CallTest, void)
-	CR_STATE
+	CR_STATE()
 		InlineCoroutine ilc;
 		union {
 			YieldTester<cr::mt::Scheduler> mt;
@@ -34,7 +32,6 @@ namespace cr::test::syntax
 			YieldTester<cr::sync::FIFOScheduler> syncFifo;
 		} yield;
 
-		inline void cr_prepare() {}
 		inline void cr_destroy() {}
 	CR_EXTERNAL
 
@@ -50,8 +47,7 @@ namespace cr::test::syntax
 
 	PROTOTHREAD(Proto)
 
-	PT_STATE
-		inline void cr_prepare(int) {}
+	PT_STATE((int) x)
 	PT_INLINE
 		PT_YIELD;
 		PT_RETURN;
@@ -59,10 +55,9 @@ namespace cr::test::syntax
 
 	template<class T>
 	TEMPLATE_PROTOTHREAD(Proto2, (T))
-	PT_STATE
+	PT_STATE((int &) y)
 		Proto p;
 
-		inline void cr_prepare() {}
 	PT_EXTERNAL
 
 	template<class T>

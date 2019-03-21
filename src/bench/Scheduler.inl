@@ -1,22 +1,13 @@
 namespace cr::test::bench
 {
 	template<class SchedulerT>
-	void Scheduler<SchedulerT>::Yielder::cr_prepare(
-		std::size_t iterations,
-		Scheduler<SchedulerT> * testbench)
-	{
-		this->i = iterations;
-		this->testbench = testbench;
-	}
-
-	template<class SchedulerT>
 	void Scheduler<SchedulerT>::Yielder::cr_destroy()
 	{
 	}
 
 	template<class SchedulerT>
 	CR_IMPL(Scheduler<SchedulerT>::Yielder)
-		while(i--)
+		while(iterations--)
 			CR_YIELD;
 		++testbench->m_finished;
 	CR_IMPL_END

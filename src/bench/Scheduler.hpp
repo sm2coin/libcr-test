@@ -11,13 +11,9 @@ namespace cr::test::bench
 	class Scheduler : public Benchmark
 	{
 		COROUTINE(Yielder, SchedulerT)
-		CR_STATE
-			std::size_t i;
-			Scheduler<SchedulerT> * testbench;
-
-			inline void cr_prepare(
-				std::size_t iterations,
-				Scheduler<SchedulerT> * testbench);
+		CR_STATE(
+			(std::size_t) iterations,
+			(Scheduler<SchedulerT> *) testbench)
 			inline void cr_destroy();
 		CR_EXTERNAL
 

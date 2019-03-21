@@ -12,15 +12,10 @@ namespace cr::test::bench
 	class Event : public Benchmark
 	{
 		COROUTINE(Waiter, void)
-		CR_STATE
-			std::size_t i;
-			EventT * events;
-			std::size_t * finished;
-
-			inline void cr_prepare(
-				std::size_t iterations,
-				EventT * events,
-				std::size_t * finished);
+		CR_STATE(
+			(std::size_t) iterations,
+			(EventT *) events,
+			(std::size_t *) finished)
 			inline void cr_destroy();
 		CR_EXTERNAL
 

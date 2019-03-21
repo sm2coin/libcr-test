@@ -1,17 +1,6 @@
 namespace cr::test::bench
 {
 	template<class EventT>
-	void ConsumableEvent<EventT>::Waiter::cr_prepare(
-		std::size_t iterations,
-		EventT * event,
-		std::size_t * finished)
-	{
-		this->i = iterations;
-		this->event = event;
-		this->finished = finished;
-	}
-
-	template<class EventT>
 	void ConsumableEvent<EventT>::Waiter::cr_destroy()
 	{
 		++*finished;
@@ -19,7 +8,7 @@ namespace cr::test::bench
 
 	template<class EventT>
 	CR_IMPL(ConsumableEvent<EventT>::Waiter)
-		while(i--)
+		while(iterations--)
 			CR_AWAIT(event->consume());
 	CR_IMPL_END
 

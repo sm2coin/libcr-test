@@ -21,13 +21,10 @@ namespace cr::test::bench
 	{
 		/** Simple coroutine that yields `iterations` times. */
 		COROUTINE(Yielder, Scheduler)
-		CR_STATE
-			std::size_t i;
-			MtScheduler<Scheduler> * testbench;
+		CR_STATE(
+			(std::size_t) iterations,
+			(MtScheduler<Scheduler> *) testbench)
 
-			inline void cr_prepare(
-				std::size_t iterations,
-				MtScheduler<Scheduler> * testbench);
 			inline void cr_destroy();
 		CR_EXTERNAL
 
