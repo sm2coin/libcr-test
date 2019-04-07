@@ -16,13 +16,14 @@ namespace cr::test::bench
 
 	template<class Scheduler>
 	void MtScheduler<Scheduler>::scheduling_thread(
-		MtScheduler<Scheduler> * scheduler)
+		MtScheduler<Scheduler> * scheduler,
+		std::size_t index)
 	{
 		std::size_t hits = 0;
 		std::size_t misses = 0;
 		while(scheduler->m_running.load(std::memory_order_relaxed))
 		{
-			if(Scheduler::instance().schedule())
+			if(Scheduler::instance().schedule(index))
 				++hits;
 			else
 				++misses;
@@ -71,7 +72,7 @@ namespace cr::test::bench
 
 		m_threads.reserve(std::thread::hardware_concurrency());
 		for(std::size_t i = 0; i < std::thread::hardware_concurrency(); i++)
-			m_threads.emplace_back(scheduling_thread, this);
+			m_threads.emplace_back(scheduling_thread, this, i);
 	}
 
 	template<class Scheduler>

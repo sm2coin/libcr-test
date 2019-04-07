@@ -46,9 +46,14 @@ namespace cr::test::bench
 		/** The scheduling threads. */
 		std::vector<std::thread> m_threads;
 
-		/** */
+		/** The scheduling thread.
+		@param[in] scheduler:
+			The scheduler.
+		@param[in] thread:
+			The scheduling thread's index. */
 		static void scheduling_thread(
-			MtScheduler<Scheduler> * scheduler);
+			MtScheduler<Scheduler> * scheduler,
+			std::size_t thread);
 		/** Notifies the testbench that a coroutine finished. */
 		void notify();
 	public:

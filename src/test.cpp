@@ -63,6 +63,12 @@ void test_mt_schedulers(
 		coroutines,
 		iterations,
 		batches);
+
+	benchmark<bench::MtScheduler<cr::HybridScheduler<cr::mt::FIFOConditionVariable, cr::sync::ConditionVariable>>>(
+		"HybridScheduler<mt::FIFO,sync::CV>",
+		coroutines,
+		iterations * 2,
+		batches);
 }
 
 void test_sync_schedulers(
@@ -92,6 +98,12 @@ void test_sync_schedulers(
 
 	benchmark<bench::Scheduler<cr::mt::FIFOScheduler>>(
 		"cr::mt::FIFOScheduler",
+		coroutines,
+		iterations,
+		batches);
+
+	benchmark<bench::Scheduler<cr::HybridScheduler<cr::mt::FIFOConditionVariable, cr::sync::ConditionVariable>>>(
+		"HybridScheduler<mt::FIFO,sync::CV>",
 		coroutines,
 		iterations,
 		batches);
@@ -169,7 +181,7 @@ void intro()
 #else
 	std::cout << "DEBUG";
 #endif
-	std::cout << " build, " << sizeof(cr::Coroutine) << " bytes/coroutine)\n";
+	std::cout << " build, " << sizeof(cr::Coroutine) << " bytes/coroutine) [" << std::thread::hardware_concurrency() << " threads]\n";
 }
 
 int main(int, char **)

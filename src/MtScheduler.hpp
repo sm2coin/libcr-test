@@ -30,18 +30,26 @@ public:
 	}
 
 	/** Progresses all currently waiting coroutines.
+	@param[in] thread:
+		The thread to schedule.
 	@return
 		Whether any coroutines were waiting. */
-	bool schedule()
+	bool schedule(
+		std::size_t thread)
 	{
-		return m_cvs[m_notify_counter.fetch_add(1,std::memory_order_relaxed)
-			% m_cvs.size()].notify_one();
+		return m_cvs[thread].notify_all();
 	}
 
-	/** Enqueues a coroutine to wait */
+	/** Enqueues a coroutine to wait. */
 	inline typename ConditionVariable::WaitCall enqueue()
 	{
 		return m_cvs[m_wait_counter.fetch_add(1, std::memory_order_relaxed) % m_cvs.size()].wait();
+	}
+
+	void initialise(
+		std::size_t threads)
+	{
+		m_cvs.resize(threads);
 	}
 };
 

@@ -31,6 +31,7 @@ namespace cr::test::bench
 	template<class SchedulerT>
 	void Scheduler<SchedulerT>::execute()
 	{
+		SchedulerT::instance().initialise(1);
 		for(std::size_t i = 0; i < m_coroutine_count; i++)
 			m_coroutines[i].start(nullptr, m_iterations, this);
 		while(SchedulerT::instance().schedule());
