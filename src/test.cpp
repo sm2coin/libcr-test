@@ -197,6 +197,11 @@ int main(int, char **)
 		coroutines,
 		iterations,
 		batches);
+	benchmark<bench::Queue<cr::mt::FIFOFixedQueue<int, 10>>>(
+		"cr::mt::FIFOFixedQueue<int, 10>",
+		coroutines,
+		iterations,
+		batches);
 
 	test_mt_schedulers(
 		coroutines,
