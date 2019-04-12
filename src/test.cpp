@@ -3,6 +3,7 @@
 #include "bench/Scheduler.hpp"
 #include "bench/Event.hpp"
 #include "bench/ConsumableEvent.hpp"
+#include "bench/Queue.hpp"
 #include "MtScheduler.hpp"
 #include <iostream>
 #include <climits>
@@ -190,6 +191,12 @@ int main(int, char **)
 	std::size_t coroutines = 600;
 	std::size_t iterations = 10000;
 	std::size_t batches = 20;
+
+	benchmark<bench::Queue<cr::sync::FIFOFixedQueue<int, 10>>>(
+		"cr::sync::FIFOFixedQueue<int, 10>",
+		coroutines,
+		iterations,
+		batches);
 
 	test_mt_schedulers(
 		coroutines,

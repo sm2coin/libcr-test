@@ -24,7 +24,7 @@ add_subdirectory(depend/timer)
 
 set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Wextra -Werror -g")
 if(RELEASE)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DLIBCR_RELEASE -DNDEBUG")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DLIBCR_RELEASE -DNDEBUG -O3 -mtune=native")
 endif()
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/depend/libcr/include)
