@@ -20,7 +20,6 @@ endif()
 set(LIBCR_RELEASE ${RELEASE} CACHE BOOL "libcr build mode" FORCE)
 
 add_subdirectory(depend/libcr)
-add_subdirectory(depend/timer)
 
 set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Wextra -Werror -g")
 if(RELEASE)
@@ -28,7 +27,6 @@ if(RELEASE)
 endif()
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/depend/libcr/include)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/depend/timer/include)
 
 # Select all source files.
 file(GLOB_RECURSE libcr_test_sources ./src/*.cpp)
