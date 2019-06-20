@@ -12,6 +12,7 @@ namespace cr::test::bench
 		{
 			CR_AWAIT(events[iterations&1].wait());
 		}
+	CR_FINALLY
 	CR_IMPL_END
 
 	template<class EventT>

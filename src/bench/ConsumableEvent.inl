@@ -10,6 +10,7 @@ namespace cr::test::bench
 	CR_IMPL(ConsumableEvent<EventT>::Waiter)
 		while(iterations--)
 			CR_AWAIT(event->consume());
+	CR_FINALLY
 	CR_IMPL_END
 
 	template<class EventT>

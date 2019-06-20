@@ -1,15 +1,11 @@
 namespace cr::test::bench
 {
 	template<class SchedulerT>
-	void Scheduler<SchedulerT>::Yielder::cr_destroy()
-	{
-	}
-
-	template<class SchedulerT>
 	CR_IMPL(Scheduler<SchedulerT>::Yielder)
 		while(iterations--)
 			CR_YIELD;
 		++testbench->m_finished;
+	CR_FINALLY
 	CR_IMPL_END
 
 	template<class SchedulerT>

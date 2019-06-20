@@ -10,6 +10,7 @@ namespace cr::test::bench
 		while(iterations--)
 			CR_CALL(pop, (id(*queue), dummy));
 		++*finished;
+	CR_FINALLY
 	CR_IMPL_END
 
 	template<class QueueT>
@@ -17,6 +18,7 @@ namespace cr::test::bench
 		while(iterations--)
 			CR_CALL(push.copy, (id(*queue), 1));
 		++*finished;
+	CR_FINALLY
 	CR_IMPL_END
 
 	template<class QueueT>

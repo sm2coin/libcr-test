@@ -5,16 +5,16 @@ namespace cr::test::syntax
 	COROUTINE(InlineCoroutine, void)
 
 	CR_STATE()
-		inline void cr_destroy() {}
 	CR_INLINE
+	CR_FINALLY
 	CR_INLINE_END
 
 	template<class Scheduler>
 	TEMPLATE_COROUTINE(YieldTester, (Scheduler), Scheduler)
 	CR_STATE((int) x)
-		inline void cr_destroy() {}
 	CR_INLINE
 		CR_YIELD;
+	CR_FINALLY
 	CR_INLINE_END
 
 	template class YieldTester<cr::mt::Scheduler>;
@@ -31,8 +31,6 @@ namespace cr::test::syntax
 			YieldTester<cr::sync::Scheduler> sync;
 			YieldTester<cr::sync::FIFOScheduler> syncFifo;
 		} yield;
-
-		inline void cr_destroy() {}
 	CR_EXTERNAL
 
 
@@ -43,6 +41,7 @@ namespace cr::test::syntax
 		CR_CALL(yield.mtFifo, (1));
 		CR_CALL(yield.sync, (1));
 		CR_CALL(yield.syncFifo, (1));
+	CR_FINALLY
 	CR_IMPL_END
 
 	PROTOTHREAD(Proto)
