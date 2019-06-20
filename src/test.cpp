@@ -10,6 +10,16 @@
 
 using namespace cr::test;
 
+void display_line(
+	char const * name,
+	double duration,
+	std::size_t switches)
+{
+	double mhz = switches / (duration * 1000000);
+	double ns = (1000000000 * duration) / switches;
+	std::printf("| %s: %12.7fs (%12.8fMHz | %12.8fns)                        |\n", name, duration, mhz, ns);
+}
+
 template<class Benchmark>
 void benchmark(
 	char const * name,
@@ -17,20 +27,19 @@ void benchmark(
 	std::size_t iterations,
 	std::size_t batch)
 {
-	std::size_t const k_mega = 1000000;
 	std::size_t switches = coroutines * iterations;
 	Benchmark bench {coroutines, iterations};
 
-	std::cout << "\n+===============================================================================\n";
+	std::cout << "\n+==============================================================================+\n";
 	std::cout << "| " << Benchmark::name() << "<" << name << ">: " << batch << " batches (" << coroutines << ", " << iterations << ")\n";
-	std::cout << "+-------------------------------------------------------------------------------\n";
+	std::cout << "+------------------------------------------------------------------------------+\n";
 	cr::test::Benchmark::BatchTimes dur = bench.batch(batch);
-	std::cout << "| Sum: " << dur.avg_duration * batch << "s\n";
-	std::cout << "| Min: " << dur.min_duration << "s (" << switches / dur.min_duration / k_mega << "MHz)\n";
-	std::cout << "| Avg: " << dur.avg_duration << "s (" << switches / dur.avg_duration / k_mega << "MHz)\n";
-	std::cout << "| Med: " << dur.med_duration << "s (" << switches / dur.med_duration / k_mega << "MHz)\n";
-	std::cout << "| Max: " << dur.max_duration << "s (" << switches / dur.max_duration / k_mega << "MHz)\n";
-	std::cout << "+===============================================================================\n";
+	display_line("Sum", dur.avg_duration * batch, switches * batch);
+	display_line("Min", dur.min_duration, switches);
+	display_line("Avg", dur.avg_duration, switches);
+	display_line("Med", dur.med_duration, switches);
+	display_line("Max", dur.max_duration, switches);
+	std::cout << "+==============================================================================+\n";
 
 }
 

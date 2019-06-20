@@ -15,3 +15,4 @@ Simply clone the repository, and execute:
 	cmake .
 
 You can also pass `-DRELEASE=ON` or `-DRELEASE=OFF` to build for release (or debug, respectively).
+Pass `-DCOMPACT_IP=ON` (or OFF) to control the compact instruction pointer feature.
