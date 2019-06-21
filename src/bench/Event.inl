@@ -1,18 +1,13 @@
 namespace cr::test::bench
 {
 	template<class EventT>
-	void Event<EventT>::Waiter::cr_destroy()
-	{
-		++*finished;
-	}
-
-	template<class EventT>
 	CR_IMPL(Event<EventT>::Waiter)
 		while(iterations--)
 		{
 			CR_AWAIT(events[iterations&1].wait());
 		}
 	CR_FINALLY
+		++*finished;
 	CR_IMPL_END
 
 	template<class EventT>

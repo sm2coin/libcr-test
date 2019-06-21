@@ -37,8 +37,10 @@ namespace cr::test::syntax
 	CR_IMPL(CallTest)
 		CR_CALL(ilc, ());
 		// Test all schedulers.
-		CR_CALL(yield.mt, (1));
-		CR_CALL(yield.mtFifo, (1));
+		CR_CALL(yield.mt, (1), {
+			CR_THROW;
+		});
+		CR_CALL(*&yield.mtFifo, (1));
 		CR_CALL(yield.sync, (1));
 		CR_CALL(yield.syncFifo, (1));
 	CR_FINALLY

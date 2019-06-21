@@ -15,8 +15,6 @@ namespace cr::test::bench
 			(std::size_t) iterations,
 			(EventT *) event,
 			(std::size_t *) finished)
-
-			inline void cr_destroy();
 		CR_EXTERNAL
 
 		std::vector<Waiter> m_coroutines;

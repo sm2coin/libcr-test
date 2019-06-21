@@ -1,14 +1,9 @@
-template<class T>
-inline T &id(T & x) { return x; }
-template<class T>
-inline T &&id(T &&x) { return std::move(x); }
-
 namespace cr::test::bench
 {
 	template<class QueueT>
 	CR_IMPL(Queue<QueueT>::Consumer)
 		while(iterations--)
-			CR_CALL(pop, (id(*queue), dummy));
+			CR_CALL(pop, (*queue, dummy));
 		++*finished;
 	CR_FINALLY
 	CR_IMPL_END
@@ -16,7 +11,7 @@ namespace cr::test::bench
 	template<class QueueT>
 	CR_IMPL(Queue<QueueT>::Producer)
 		while(iterations--)
-			CR_CALL(push.copy, (id(*queue), 1));
+			CR_CALL(push.copy, (*queue, 1));
 		++*finished;
 	CR_FINALLY
 	CR_IMPL_END
