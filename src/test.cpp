@@ -191,6 +191,11 @@ void intro()
 #else
 	std::cout << "DEBUG";
 #endif
+
+#ifdef LIBCR_INLINE
+	std::cout << ", inlined";
+#endif
+
 	std::cout << " build, " << sizeof(cr::Coroutine) << " bytes/coroutine) [" << std::thread::hardware_concurrency() << " threads]\n";
 }
 

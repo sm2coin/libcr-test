@@ -11,6 +11,7 @@ execute_process(
 
 OPTION(RELEASE OFF "Test libcr's release build.")
 OPTION(COMPACT_IP OFF "Test libcr with more compact coroutines.")
+OPTION(INLINE OFF "Inline libcr's functions")
 
 if(RELEASE)
 	message("libcr-test: RELEASE")
@@ -24,6 +25,7 @@ endif()
 
 set(LIBCR_RELEASE ${RELEASE} CACHE BOOL "libcr build mode" FORCE)
 set(LIBCR_COMPACT_IP ${COMPACT_IP} CACHE BOOL "libcr compact instruction pointers" FORCE)
+set(LIBCR_INLINE ${INLINE} CACHE BOOL "libcr implementation inlining" FORCE)
 
 add_subdirectory(depend/libcr)
 
@@ -33,6 +35,10 @@ if(RELEASE)
 endif()
 if(COMPACT_IP)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DLIBCR_COMPACT_IP")
+endif()
+
+if(INLINE)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DLIBCR_INLINE")
 endif()
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/depend/libcr/include)
